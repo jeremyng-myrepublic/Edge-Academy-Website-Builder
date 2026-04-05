@@ -307,6 +307,14 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
   .section-header h2 { font-size: 1.7rem; }
   .about-inner h2 { font-size: 1.6rem; }
 }
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .hero-bg .orb-1, .hero-bg .orb-2, .hero-bg .orb-3 { animation: none !important; }
+  .testi-marquee .testi-track { animation: none !important; }
+}
+/* Smooth touch scrolling for all mobile devices */
+html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
 {{STYLE_CSS}}
 
 /* ── INLINE TEXT EDITING ── */

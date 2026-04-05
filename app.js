@@ -206,11 +206,14 @@ function prefillDemo(type) {
 }
 
 function toggleAdvanced() {
-  const adv = document.getElementById('advancedOptions');
-  const chk = document.getElementById('advToggle');
-  adv.classList.toggle('hidden', !chk.checked);
+  const section = document.getElementById('advSection');
+  const toggle = document.getElementById('advToggle');
+  section.classList.toggle('show');
+  toggle.classList.toggle('open');
 }
 
+function fillTemplate(contentJson, profile) {
+  let html = WEBSITE_TEMPLATE;
   const c = contentJson;
 
   // Inject style-specific fonts and CSS
