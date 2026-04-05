@@ -181,7 +181,18 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
 
-@media (max-width: 900px) { .s2-body { grid-template-columns: 1fr; } .s2-left { max-height: 45vh; } .steps { display: none; } .s1-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .s2-body { grid-template-columns: 1fr; }
+  .s2-left { max-height: 50vh; transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease; overflow: hidden; }
+  .s2-left.collapsed { max-height: 0; opacity: 0; padding: 0; border: none; pointer-events: none; }
+  .steps { display: none; }
+  .s1-grid { grid-template-columns: 1fr; }
+  .mobile-toggle-panel { display: flex !important; }
+}
+.mobile-toggle-panel { display: none; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: var(--card); border-bottom: 1px solid var(--border); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.mobile-toggle-panel span { font-size: 0.82rem; font-weight: 600; color: var(--accent); }
+.mobile-toggle-panel .toggle-arrow { font-size: 0.7rem; color: var(--accent); transition: transform 0.3s; }
+.mobile-toggle-panel .toggle-arrow.up { transform: rotate(180deg); }
 </style>
 </head>
 <body>
@@ -362,7 +373,11 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
     <div class="topbar-right"><div class="api-badge" onclick="changeApiKey()"><div class="api-dot"></div> API connected</div></div>
   </div>
   <div class="s2-body">
-    <div class="s2-left">
+    <div class="mobile-toggle-panel" onclick="togglePanel()">
+      <span id="panelToggleLabel">Hide Edit Panel</span>
+      <div class="toggle-arrow up" id="panelToggleArrow">▼</div>
+    </div>
+    <div class="s2-left" id="s2Left">
       <div class="s2-left-top">
         <h2>Customise Your Website</h2>
         <p>Tweak colours, fonts, and style — changes apply instantly.</p>
@@ -2480,6 +2495,16 @@ async function callClaude(system, messages, maxTokens = 4096) {
 
 function showLoading(t, s) { document.getElementById('loadingText').textContent = t; document.getElementById('loadingSub').textContent = s||''; document.getElementById('loadingOverlay').classList.remove('hidden'); }
 function hideLoading() { document.getElementById('loadingOverlay').classList.add('hidden'); }
+function togglePanel() {
+  const panel = document.getElementById('s2Left');
+  const label = document.getElementById('panelToggleLabel');
+  const arrow = document.getElementById('panelToggleArrow');
+  panel.classList.toggle('collapsed');
+  const hidden = panel.classList.contains('collapsed');
+  label.textContent = hidden ? 'Show Edit Panel' : 'Hide Edit Panel';
+  arrow.classList.toggle('up', !hidden);
+}
+
 function showToast(m, c='#0b275e') { const t = document.getElementById('toast'); t.textContent = m; t.style.background = c; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000); }
 </script>
 </body>
