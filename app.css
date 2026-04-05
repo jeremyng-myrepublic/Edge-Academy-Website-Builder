@@ -177,6 +177,8 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 @media (max-width: 900px) {
   html, body { overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
   .screen { height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible; }
+  /* Screen 2 & 3 need fixed height for iframe to fill space */
+  #screen2, #screen3 { height: 100vh; height: 100dvh; min-height: 0; overflow: hidden; }
 
   /* Topbar */
   .topbar { padding: 8px 12px; flex-wrap: wrap; gap: 6px; }
@@ -200,21 +202,24 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   .advanced-section.show { grid-template-columns: 1fr; }
   .color-row { flex-wrap: wrap; }
 
-  /* Screen 2 */
-  .s2-body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(100vh - 45px); height: calc(100dvh - 45px); overflow: hidden; }
-  .s2-left { max-height: 45vh; transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease; overflow-y: auto; -webkit-overflow-scrolling: touch; border-right: none; border-bottom: 1px solid var(--border); }
-  .s2-left.collapsed { max-height: 0; opacity: 0; padding: 0; border: none; pointer-events: none; }
+  /* Screen 2 — use flexbox so collapsed panel truly takes 0 space */
+  #screen2 { height: 100vh; height: 100dvh; overflow: hidden; }
+  .s2-body { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+  .s2-left { flex: 0 0 auto; max-height: 40vh; overflow-y: auto; -webkit-overflow-scrolling: touch; border-right: none; border-bottom: 1px solid var(--border); transition: max-height 0.3s ease, opacity 0.2s ease; }
+  .s2-left.collapsed { max-height: 0 !important; min-height: 0 !important; opacity: 0; padding: 0; border: none; pointer-events: none; overflow: hidden; }
+  .s2-right { flex: 1; min-height: 0; display: flex; flex-direction: column; }
   .s2-left-top { padding: 12px 14px; }
   .s2-left-top h2 { font-size: 0.82rem; }
   .s2-left-top p { font-size: 0.72rem; }
   .qe-scroll { padding: 12px 14px; gap: 14px; }
   .qe-style-grid { grid-template-columns: repeat(3, 1fr); }
-  .preview-toolbar { padding: 8px 12px; }
-  .preview-toolbar .preview-label { font-size: 0.76rem; }
-  .preview-toolbar .preview-actions { gap: 6px; }
-  .preview-toolbar .btn { font-size: 0.7rem !important; padding: 6px 10px !important; }
-  .preview-frame-wrap { padding: 8px; }
-  .mobile-toggle-panel { display: flex !important; }
+  .preview-toolbar { padding: 6px 10px; flex-shrink: 0; }
+  .preview-toolbar .preview-label { font-size: 0.72rem; }
+  .preview-toolbar .preview-actions { gap: 4px; }
+  .preview-toolbar .btn { font-size: 0.68rem !important; padding: 5px 8px !important; }
+  .preview-frame-wrap { flex: 1; min-height: 0; padding: 4px; }
+  .preview-frame-wrap iframe { border-radius: 8px; }
+  .mobile-toggle-panel { display: flex !important; flex-shrink: 0; }
 
   /* Screen 3 */
   .s3-toolbar { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
@@ -247,7 +252,6 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   .field label { font-size: 0.76rem; }
   .field input, .field textarea, .field select { font-size: 0.82rem; padding: 9px 12px; }
   .qe-style-grid { grid-template-columns: repeat(2, 1fr); }
-  .s2-body { height: calc(100vh - 40px); height: calc(100dvh - 40px); }
 }
 
 .mobile-toggle-panel { display: none; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: var(--card); border-bottom: 1px solid var(--border); cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; }
