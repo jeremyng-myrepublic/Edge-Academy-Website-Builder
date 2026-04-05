@@ -17,8 +17,8 @@ const WEBSITE_TEMPLATE = `<!DOCTYPE html>
   --text-light: #64748b;
   --radius: 20px;
 }
-html { scroll-behavior: smooth; }
-body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: var(--dark); line-height: 1.6; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: clip; width: 100%; }
+body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: var(--dark); line-height: 1.6; overflow-x: clip; width: 100%; max-width: 100vw; position: relative; }
 h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 
 /* ── NAV ── */
@@ -33,7 +33,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 
 /* ── HERO ── */
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--dark); padding-top: 120px; padding-bottom: 60px; }
-.hero-bg { position: absolute; inset: 0; }
+.hero-bg { position: absolute; inset: 0; overflow: hidden; }
 .hero-bg .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: orbFloat 8s ease-in-out infinite; }
 .hero-bg .orb-1 { width: 600px; height: 600px; background: var(--primary); top: -10%; right: -5%; animation-delay: 0s; }
 .hero-bg .orb-2 { width: 400px; height: 400px; background: var(--accent); bottom: -10%; left: 10%; animation-delay: -3s; opacity: 0.3; }
@@ -198,7 +198,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 
 /* MARQUEE MODE: horizontal infinite scroll */
 @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.testi-marquee .testi-grid { display: flex; gap: 24px; overflow: hidden; flex-wrap: nowrap; max-width: 100%; }
+.testi-marquee .testi-grid { display: flex; gap: 24px; overflow: hidden; flex-wrap: nowrap; max-width: 100%; width: 100%; }
 .testi-marquee .testi-grid .testi-card { min-width: 340px; max-width: 340px; flex-shrink: 0; }
 .testi-marquee .testi-track { display: flex; gap: 24px; animation: marqueeScroll 30s linear infinite; width: max-content; }
 
